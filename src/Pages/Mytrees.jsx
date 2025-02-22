@@ -134,6 +134,7 @@ const MyTrees = () => {
     const [selectedTree, setSelectedTree] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const [generatedContent, setGeneratedContent] = useState(null);
+    const [showSubmitButton, setShowSubmitButton] = useState(false);
     const navigate = useNavigate();
 
     const user = JSON.parse(localStorage.getItem("user"));
@@ -196,7 +197,7 @@ const MyTrees = () => {
         const distance = R * c;
         return distance;
     };
-    let gencontent = {};
+
     const handleFileSelection = (e) => {
         console.log("inside hanldeselction");
         const file = e.target.files[0];
@@ -222,8 +223,10 @@ const MyTrees = () => {
             reader.readAsDataURL(file);
         }
     };
+
     const handleUploadPhoto = async (tree) => {
         treeid = tree.id;
+        console.log(treeid);
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 async (position) => {
@@ -241,6 +244,9 @@ const MyTrees = () => {
                     if (distance <= 2000) {
                         setSelectedTree(tree);
                         document.getElementById("fileInput").click();
+                        setTimeout(() => {
+                            setShowSubmitButton(true);
+                        }, 5000);
                     } else {
                         alert(
                             "You are not within the required range to upload a photo."
@@ -270,11 +276,6 @@ const MyTrees = () => {
             return;
         }
 
-        // if (!generatedContent) {
-        //     alert("Generated content is not available.");
-        //     return;
-        // }
-
         const updatedContent = {
             longitude: parseFloat(lon2),
             latitude: parseFloat(lat2),
@@ -292,7 +293,7 @@ const MyTrees = () => {
             carbonAbsorption: generatedContent.carbonAbsorption,
             oxygenProduction: generatedContent.oxygenProduction,
             tree: {
-                id: treeid,
+                id: selectedTree.id,
             },
         };
 
@@ -319,6 +320,7 @@ const MyTrees = () => {
                 throw new Error("Failed to upload photo.");
             }
             alert("Photo and data uploaded successfully!");
+            setShowSubmitButton(false);
         } catch (error) {
             console.error("Error uploading photo and data:", error);
             alert("Error uploading photo and data. Please try again.");
@@ -409,7 +411,7 @@ const MyTrees = () => {
                     className="hidden"
                     onChange={handleFileSelection}
                 />
-                {selectedFile && (
+                {showSubmitButton && (
                     <button
                         className="mt-3 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
                         onClick={handleSubmitPhoto}

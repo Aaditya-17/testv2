@@ -66,6 +66,10 @@ const ProgressPhotos = () => {
                                 >
                                     Show Status
                                 </button>
+                                <p>
+                                    <strong className="ml-3">Scan Date:</strong>
+                                    {photo.scanDate}
+                                </p>
                             </div>
                         ))}
                     </div>
@@ -73,9 +77,6 @@ const ProgressPhotos = () => {
                 {selectedPhoto && (
                     <div className="mt-6 p-4 bg-white rounded-lg shadow-md">
                         <h2 className="text-xl font-bold mb-4">Tree Status</h2>
-                        <p>
-                            <strong>Scan Date:</strong> {selectedPhoto.scanDate}
-                        </p>
                         <p>
                             <strong>Scan Time:</strong> {selectedPhoto.scanTime}
                         </p>
