@@ -61,8 +61,10 @@ const Post = ({ post, setPosts }) => {
         <div className="bg-white p-4 rounded-lg shadow-md relative">
             <div className="flex items-center mb-2">
                 <img
-                    src={"https://as2.ftcdn.net/jpg/04/10/43/77/1000_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg"}
-                    // alt={post.treeOwner.username}
+                    src={
+                        "https://as2.ftcdn.net/jpg/04/10/43/77/1000_F_410437733_hdq4Q3QOH9uwh0mcqAhRFzOKfrCR24Ta.jpg"
+                    }
+                    alt={post.treeOwner.username}
                     className="w-10 h-10 rounded-full mr-2"
                 />
                 <div>
